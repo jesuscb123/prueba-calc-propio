@@ -17,7 +17,7 @@ class GestorFicheros() {
 
         fun obtenerUltimoLog(directorio: File): File{
             val listaFicheros = directorio.listFiles()
-            return listaFicheros[0]
+            return listaFicheros.maxBy { it.lastModified() }
         }
 
         fun leerLog(fichero: File): List<String>{
