@@ -2,11 +2,13 @@ package prog2425.dam1.calculadora.app
 
 import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
-import kotlin.math.sign
 
-class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc) {
+import prog2425.dam1.calculadora.utils.IUtilFichero
 
-  fun iniciarCalculadora(){
+
+class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val gestorFicheros: IUtilFichero) {
+
+  fun iniciarCalculadora(rutaFichero: String){
         var terminar = false
         do{
             try {
@@ -15,6 +17,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc) {
                 val signo = pedirSigno("Introduce el operador:")
                 val b = pedirNumero("Introduce el segundo número:")
                 mostrarResultado(obtenerResultado(a, b, signo))
+                gestorFicheros.escribirLog(rutaFichero)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
                 consola.mostrarError("$e")
