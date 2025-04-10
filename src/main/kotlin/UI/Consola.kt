@@ -87,6 +87,7 @@ class Consola() : IEntradaSalida {
         }
     }
 
-
-
+    override fun pausar() {
+        pedirInfo("Pulsa enter para continuar...")
+    }
 }

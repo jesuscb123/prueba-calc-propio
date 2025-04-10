@@ -2,6 +2,7 @@ package prog2425.dam1.calculadora.app
 
 import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
+import prog2425.dam1.calculadora.model.Operacion
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
 import kotlin.math.sign
@@ -19,7 +20,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                 val b = pedirNumero("Introduce el segundo número:")
                 val resultado = obtenerResultado(a, b, signo)
                 mostrarResultado(resultado)
-                val operacionTexto = "Primer número: $a Signo: $signo Segundo número: Tercer número: $b Resultado: $resultado"
+                val operacionTexto = Operacion(a, signo, b, resultado)
                 gestorFicheros.escribirLog(rutaFichero,operacionTexto)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
