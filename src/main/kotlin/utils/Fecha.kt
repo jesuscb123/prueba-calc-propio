@@ -1,14 +1,17 @@
 package prog2425.dam1.calculadora.utils
 
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Fecha : IUtilFecha {
-    override fun formatearFecha(fecha: String): DateTimeFormatter {
-        return DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    private fun formatearFecha(): DateTimeFormatter {
+        return DateTimeFormatter.ofPattern("YYYYMMddhhmmss")
     }
 
-    override fun validarFecha(fecha: String): Boolean {
-        val regex = """\d{2}/\d{2}/\d{4}"""
-        return fecha.matches(regex.toRegex())
+
+    override fun parsearFecha(fecha: String): LocalDate {
+        return LocalDate.parse(fecha ,formatearFecha())
     }
+
 }

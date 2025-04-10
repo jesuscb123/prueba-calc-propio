@@ -5,7 +5,7 @@ import java.util.InputMismatchException
 import java.util.Scanner
 
 class Consola() : IEntradaSalida {
-    val escaner = Scanner(System.`in`)
+    private val escaner = Scanner(System.`in`)
     override fun <T> mostrar(msj: T) {
         if (msj is String) {
             println(msj.trim())
@@ -81,6 +81,12 @@ class Consola() : IEntradaSalida {
             }
         }
     }
+   override fun <T> mostrarLista(lista: List<T>){
+        for (elemento in lista){
+            mostrar(elemento)
+        }
+    }
+
 
 
 }

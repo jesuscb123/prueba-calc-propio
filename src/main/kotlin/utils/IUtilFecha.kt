@@ -1,11 +1,12 @@
 package prog2425.dam1.calculadora.utils
 
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 interface IUtilFecha {
-    fun formatearFecha(fecha: String): DateTimeFormatter
+
+    fun parsearFecha(fecha: String): LocalDate
 
 
-    fun validarFecha(fecha: String): Boolean
 
 }

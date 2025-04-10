@@ -8,4 +8,5 @@ interface IEntradaSalida {
     fun preguntarTerminar(): Boolean
     fun pedirInfo(msj: String): String
     fun limpiarPantalla(numSaltos:Int = 20)
+    fun <T> mostrarLista(lista: List<T>)
 }
