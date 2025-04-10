@@ -41,23 +41,49 @@ fun main(args: Array<String>) {
          }
          }
       1 ->{
-         val rutaDirectorio = args[0]
-         if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
-            gestorFicheros.crearDirectorio(rutaDirectorio)
-            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
-            gestorMenu.iniciarCalculadora(fichero)
-         }else{
-            if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-               val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
-               consola.mostrarLista(lineasUltimoLog)
-               gestorMenu.iniciarCalculadora(rutaDirectorio)
+         try {
+            val rutaDirectorio = args[0]
+            if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
+               gestorFicheros.crearDirectorio(rutaDirectorio)
+               val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+               gestorMenu.iniciarCalculadora(fichero)
+            }else{
+               if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
+                  val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                  consola.mostrarLista(lineasUltimoLog)
+                  val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                  gestorMenu.iniciarCalculadora(fichero)
+               }
             }
+         }catch (e: IllegalArgumentException){
+            consola.mostrarError("$e")
+         }catch (e: Exception){
+            consola.mostrarError("$e")
          }
+
       }
       4 ->{
-         val calculadora = Calculadora()
-
-
+         try {
+            val rutaDirectorio = args[0]
+            if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
+               gestorFicheros.crearDirectorio(rutaDirectorio)
+               val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+               gestorMenu.iniciarCalculadora(fichero,args[1],args[2],args[3])
+            }else{
+               if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
+                  val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                  consola.mostrarLista(lineasUltimoLog)
+                  val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                  gestorMenu.iniciarCalculadora(fichero,args[1],args[2],args[3])
+               }
+            }
+         }catch (e: IllegalArgumentException){
+            consola.mostrarError("$e")
+         }catch (e: Exception){
+            consola.mostrarError("$e")
+         }
       }
       }
    }
+
+

@@ -5,7 +5,7 @@ import java.util.InputMismatchException
 
 class Calculadora() : IServCalc {
 
-    override fun calculo(a: Double, b: Double, signo: String): Double {
+    override fun calculo(a: Double, signo: String, b: Double): Double {
         when (signo){
             "+" -> return a + b
             "-" -> return a - b

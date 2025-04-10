@@ -18,9 +18,9 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                 val a = pedirNumero("Introduce el primer número:")
                 val signo = pedirSigno("Introduce el operador:")
                 val b = pedirNumero("Introduce el segundo número:")
-                val resultado = obtenerResultado(a, b, signo)
+                val resultado = obtenerResultado(a,signo, b)
                 mostrarResultado(resultado)
-                val operacionTexto = Operacion(a, signo, b, resultado)
+                val operacionTexto = obtenerOperacion(a, signo, b, resultado)
                 gestorFicheros.escribirLog(rutaFichero,operacionTexto)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
@@ -28,6 +28,22 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
             }
         }while (!terminar)
         consola.mostrar("Has finalizado la calculadora")
+    }
+
+    fun iniciarCalculadora(rutaFichero: String, a: String, signo: String, b: String){
+        try {
+            consola.mostrar("CALCULADORA")
+            val a = a.toDouble()
+            val b = b.toDouble()
+            val resultado = obtenerResultado(a, signo, b)
+            mostrarResultado(resultado)
+            val OperacionTexto = obtenerOperacion(a, signo, b, resultado)
+            gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
+        }catch(e: NumberFormatException){
+            consola.mostrarError("Debes introducir un número.")
+        }catch (e: Exception){
+            consola.mostrarError("$e")
+        }
     }
 
     private fun pedirNumero(msj: String): Double{
@@ -42,9 +58,9 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         }
     }
 
-    private fun obtenerResultado (a: Double, b: Double, signo: String): Double{
+    private fun obtenerResultado (a: Double, signo: String, b: Double): Double{
         consola.limpiarPantalla()
-        return calculadora.calculo(a, b, signo)
+        return calculadora.calculo(a,signo,b)
     }
 
     private fun mostrarResultado (resultado: Double) {
@@ -52,4 +68,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         consola.mostrar(resultado)
     }
 
+    private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion{
+        return Operacion(a, signo, b, resultado)
+    }
 }
