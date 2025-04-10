@@ -3,6 +3,7 @@ package prog2425.dam1.calculadora
 import prog2425.dam1.calculadora.Service.Calculadora
 import prog2425.dam1.calculadora.UI.Consola
 import prog2425.dam1.calculadora.app.GestorMenu
+import prog2425.dam1.calculadora.utils.Fecha
 import prog2425.dam1.calculadora.utils.GestorFicheros
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -11,8 +12,7 @@ import java.time.format.DateTimeFormatter
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(args: Array<String>) {
    val consola = Consola()
-   val fecha = LocalDateTime.now()
-   val fechaFormateada = DateTimeFormatter.ofPattern("YYYYMMddhhmmss").format(fecha)
+   val fechaFormateada = Fecha.obtenerFechaActualFormateada()
    val gestorFicheros = GestorFicheros()
    val gestorMenu = GestorMenu(consola, Calculadora(), gestorFicheros)
    when (args.size){
@@ -20,8 +20,8 @@ fun main(args: Array<String>) {
          val rutaDirectorio = "log"
          if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
             gestorFicheros.crearDirectorio(rutaDirectorio)
-            gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
-            gestorMenu.iniciarCalculadora()
+           val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+            gestorMenu.iniciarCalculadora(fichero)
          }
          }
 

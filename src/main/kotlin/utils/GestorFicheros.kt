@@ -29,8 +29,11 @@ class GestorFicheros() : IUtilFichero {
         File(ruta).mkdir()
     }
 
-    override fun crearFichero(rutaArchivo: String, nombreArchivo: String) {
-        File("$rutaArchivo/$nombreArchivo.txt").createNewFile()
+    override fun crearFichero(rutaArchivo: String, nombreArchivo: String): String {
+        val fichero = "$rutaArchivo/log$nombreArchivo.txt"
+        File(fichero).createNewFile()
+        return fichero
+
     }
 
     override fun escribirLog(rutaFichero: String, texto: String){

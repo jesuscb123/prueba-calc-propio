@@ -18,7 +18,7 @@ interface IUtilFichero {
         fun crearDirectorio(ruta: String)
 
 
-        fun crearFichero(rutaArchivo: String, nombreArchivo: String)
+        fun crearFichero(rutaArchivo: String, nombreArchivo: String): String
 
 
         fun escribirLog(fichero: String, texto: String)

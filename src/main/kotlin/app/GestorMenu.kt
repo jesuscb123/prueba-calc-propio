@@ -4,6 +4,7 @@ import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
+import kotlin.math.sign
 
 
 class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val gestorFicheros: IUtilFichero) {
@@ -16,8 +17,10 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                 val a = pedirNumero("Introduce el primer número:")
                 val signo = pedirSigno("Introduce el operador:")
                 val b = pedirNumero("Introduce el segundo número:")
-                mostrarResultado(obtenerResultado(a, b, signo))
-                gestorFicheros.escribirLog(rutaFichero)
+                val resultado = obtenerResultado(a, b, signo)
+                mostrarResultado(resultado)
+                val operacionTexto = "$a;$signo;$b;$resultado"
+                gestorFicheros.escribirLog(rutaFichero,operacionTexto)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
                 consola.mostrarError("$e")
