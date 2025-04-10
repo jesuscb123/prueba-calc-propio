@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("es.prog2425.dam1.calculadora.MainKt")
+    mainClass.set("prog2425.dam1.calculadora.MainKt")
 }
 
 group = "prog2425.dam1.prueba-calc-propio"
