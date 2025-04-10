@@ -14,6 +14,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         var terminar = false
         do{
             try {
+                consola.limpiarPantalla()
                 consola.mostrar("CALCULADORA")
                 val a = pedirNumero("Introduce el primer número:")
                 val signo = pedirSigno("Introduce el operador:")
@@ -32,6 +33,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
 
     fun iniciarCalculadora(rutaFichero: String, a: String, signo: String, b: String){
         try {
+            consola.limpiarPantalla()
             consola.mostrar("CALCULADORA")
             val a = a.toDouble()
             val b = b.toDouble()
@@ -47,24 +49,20 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
     }
 
     private fun pedirNumero(msj: String): Double{
-        consola.limpiarPantalla()
        return consola.pedirDouble(msj)
     }
 
     private fun pedirSigno(msj: String): String {
-        consola.limpiarPantalla()
        return consola.pedirSigno(msj){
             it in arrayOf("+","-","*","/")
         }
     }
 
     private fun obtenerResultado (a: Double, signo: String, b: Double): Double{
-        consola.limpiarPantalla()
         return calculadora.calculo(a,signo,b)
     }
 
     private fun mostrarResultado (resultado: Double) {
-        consola.limpiarPantalla()
         consola.mostrar(resultado)
     }
 
