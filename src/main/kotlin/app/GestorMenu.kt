@@ -14,7 +14,6 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         var terminar = false
         do{
             try {
-                consola.limpiarPantalla()
                 consola.mostrar("CALCULADORA")
                 val a = pedirNumero("Introduce el primer número:")
                 val signo = pedirSigno("Introduce el operador:")

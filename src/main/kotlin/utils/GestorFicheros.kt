@@ -27,7 +27,6 @@ class GestorFicheros(val repoLog: IRepoLog) : IUtilFichero {
 
     override fun leerLog(fichero: File): List<String>{
         val ultimoLog = repoLog.leerLog(fichero)
-        require(ultimoLog.isNotEmpty()) { "Ultimo log no debe estar vacío." }
         return ultimoLog
     }
 
