@@ -22,6 +22,17 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+    archiveBaseName.set("prueba-calc-propio") // Nombre del jar final
+    archiveVersion.set("1.0")
+    archiveClassifier.set("")
+
+    mergeServiceFiles()
+    exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA") // Evita errores de firma
+}
+
+
 kotlin {
     jvmToolchain(21)
 }
