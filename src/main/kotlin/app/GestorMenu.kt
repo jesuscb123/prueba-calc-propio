@@ -19,7 +19,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                 val b = pedirNumero("Introduce el segundo número:")
                 val resultado = obtenerResultado(a, b, signo)
                 mostrarResultado(resultado)
-                val operacionTexto = "$a;$signo;$b;$resultado"
+                val operacionTexto = "Primer número: $a Signo: $signo Segundo número: Tercer número: $b Resultado: $resultado"
                 gestorFicheros.escribirLog(rutaFichero,operacionTexto)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){

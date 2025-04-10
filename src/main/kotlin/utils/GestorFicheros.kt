@@ -37,7 +37,7 @@ class GestorFicheros() : IUtilFichero {
     }
 
     override fun escribirLog(rutaFichero: String, texto: String){
-        File(rutaFichero).writeText(texto)
+        File(rutaFichero).appendText("$texto\n")
     }
 
     }
