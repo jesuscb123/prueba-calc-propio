@@ -20,8 +20,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                 val b = pedirNumero("Introduce el segundo número:")
                 val resultado = obtenerResultado(a,signo, b)
                 mostrarResultado(resultado)
-                val operacionTexto = obtenerOperacion(a, signo, b, resultado)
-                gestorFicheros.escribirLog(rutaFichero,operacionTexto)
+                guardarOperacion(rutaFichero, a, signo, b, resultado)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
                 consola.mostrarError("$e")
@@ -38,8 +37,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
             val numero2 = b.toDouble()
             val resultado = obtenerResultado(numero1, signo, numero2)
             mostrarResultado(resultado)
-            val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
-            gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
+
         }catch(e: NumberFormatException){
             consola.mostrarError("Debes introducir un número.")
         }catch (e: Exception){
@@ -67,5 +65,9 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
 
     private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion{
         return Operacion(a, signo, b, resultado)
+    }
+    private fun guardarOperacion(rutaFichero: String, numero1: Double, signo: String, numero2: Double, resultado: Double){
+        val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
+        gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
     }
 }
