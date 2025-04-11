@@ -34,11 +34,11 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         try {
             consola.limpiarPantalla()
             consola.mostrar("CALCULADORA")
-            val a = a.toDouble()
-            val b = b.toDouble()
-            val resultado = obtenerResultado(a, signo, b)
+            val numero1 = a.toDouble()
+            val numero2 = b.toDouble()
+            val resultado = obtenerResultado(numero1, signo, numero2)
             mostrarResultado(resultado)
-            val OperacionTexto = obtenerOperacion(a, signo, b, resultado)
+            val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
             gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
         }catch(e: NumberFormatException){
             consola.mostrarError("Debes introducir un número.")
