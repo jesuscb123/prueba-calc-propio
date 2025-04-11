@@ -83,6 +83,7 @@ fun main(args: Array<String>) {
             consola.mostrarError("$e")
          }
       }
+      else -> consola.mostrarError("Debes introducir un argumento o cuatro o ninguno.")
       }
    }
 
