@@ -45,6 +45,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         }
     }
 
+
     private fun pedirNumero(msj: String): Double{
        return consola.pedirDouble(msj)
     }
@@ -70,4 +71,79 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
         val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
         gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
     }
+
+
+    fun iniciarPrograma(args: Array<String>, fechaFormateada: String){
+        when (args.size){
+            0 -> {
+                try {
+                    val rutaDirectorio = "log"
+                    if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
+                        gestorFicheros.crearDirectorio(rutaDirectorio)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        iniciarCalculadora(fichero)
+                    }else{
+                        if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
+                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            consola.mostrarLista(lineasUltimoLog)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            iniciarCalculadora(fichero)
+                        }
+                    }
+                }catch (e: IllegalArgumentException){
+                    consola.mostrarError("$e")
+                }catch (e: Exception){
+                    consola.mostrarError("$e")
+                }
+            }
+            1 ->{
+                try {
+                    val rutaDirectorio = args[0]
+                    if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
+                        gestorFicheros.crearDirectorio(rutaDirectorio)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        iniciarCalculadora(fichero)
+                    }else{
+                        if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
+                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            consola.mostrarLista(lineasUltimoLog)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            iniciarCalculadora(fichero)
+                        }
+                    }
+                }catch (e: IllegalArgumentException){
+                    consola.mostrarError("$e")
+                }catch (e: Exception){
+                    consola.mostrarError("$e")
+                }
+
+            }
+            4 ->{
+                try {
+                    val rutaDirectorio = args[0]
+                    if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
+                        gestorFicheros.crearDirectorio(rutaDirectorio)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                        consola.mostrarLista(lineasUltimoLog)
+                        iniciarCalculadora(fichero,args[1],args[2].lowercase(),args[3])
+                    }else{
+                        if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
+                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            consola.mostrarLista(lineasUltimoLog)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            iniciarCalculadora(fichero,args[1],args[2],args[3])
+                        }
+                    }
+                }catch (e: IllegalArgumentException){
+                    consola.mostrarError("$e")
+                }catch (e: Exception){
+                    consola.mostrarError("$e")
+                }
+            }
+            else -> consola.mostrarError("Debes introducir un argumento o cuatro o ninguno.")
+        }
+    }
+
+
 }

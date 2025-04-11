@@ -10,7 +10,7 @@ interface IUtilFichero {
     fun comprobarFicheros(directorio: String): Boolean
 
 
-        fun obtenerUltimoLog(rutaArchivo: String): File?
+        fun obtenerUltimoLog(rutaArchivo: String): File
 
 
         fun leerLog(fichero: File): List<String>
