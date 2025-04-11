@@ -51,7 +51,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
 
     private fun pedirSigno(msj: String): String {
        return consola.pedirSigno(msj){
-            it in arrayOf("+","-","*","/")
+            it in arrayOf("+","-","*","x","/")
         }
     }
 

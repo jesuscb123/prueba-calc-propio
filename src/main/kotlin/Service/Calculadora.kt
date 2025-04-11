@@ -9,7 +9,7 @@ class Calculadora() : IServCalc {
         when (signo){
             "+" -> return a + b
             "-" -> return a - b
-            "*" -> return a * b
+            "*", "x" -> return a * b
             else -> return a / b
         }
     }

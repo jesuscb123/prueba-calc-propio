@@ -68,7 +68,9 @@ fun main(args: Array<String>) {
             if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
                gestorFicheros.crearDirectorio(rutaDirectorio)
                val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
-               gestorMenu.iniciarCalculadora(fichero,args[1],args[2],args[3])
+               val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+               consola.mostrarLista(lineasUltimoLog)
+               gestorMenu.iniciarCalculadora(fichero,args[1],args[2].lowercase(),args[3])
             }else{
                if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
                   val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
