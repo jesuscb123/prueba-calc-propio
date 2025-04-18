@@ -14,11 +14,10 @@ import kotlin.math.cos
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(args: Array<String>) {
    val consola = Consola()
-   val fechaFormateada = Fecha.obtenerFechaActualFormateada()
    val gestorFicheros = GestorFicheros()
    val repoLog = RepoLog(gestorFicheros)
    val gestorMenu = GestorMenu(consola, Calculadora(), repoLog, gestorFicheros)
-   gestorMenu.iniciarPrograma(args, fechaFormateada)
+   gestorMenu.iniciarPrograma(args)
    }
 
 

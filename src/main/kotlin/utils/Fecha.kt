@@ -5,9 +5,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-object Fecha {
-    fun obtenerFechaActualFormateada(): String{
-       return DateTimeFormatter.ofPattern("YYYYMMddhhmmss").format(LocalDateTime.now())
-
+class Fecha {
+    companion object{
+        fun obtenerFechaActualFormateada(): String{
+            return DateTimeFormatter.ofPattern("YYYYMMddhhmmss").format(LocalDateTime.now())
+        }
     }
+
 }

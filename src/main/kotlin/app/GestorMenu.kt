@@ -4,6 +4,7 @@ import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
 import prog2425.dam1.calculadora.data.IRepoLog
 import prog2425.dam1.calculadora.model.Operacion
+import prog2425.dam1.calculadora.utils.Fecha
 import prog2425.dam1.calculadora.utils.GestorFicheros
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
@@ -75,20 +76,20 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
     }
 
 
-    fun iniciarPrograma(args: Array<String>, fechaFormateada: String){
+    fun iniciarPrograma(args: Array<String>){
         when (args.size){
             0 -> {
                 try {
                     val rutaDirectorio = "log"
                     if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
                         gestorFicheros.crearDirectorio(rutaDirectorio)
-                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
                         iniciarCalculadora(fichero)
                     }else{
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
                             val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
-                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio, Fecha.obtenerFechaActualFormateada())
                             iniciarCalculadora(fichero)
                         }
                     }
@@ -103,13 +104,13 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
                     val rutaDirectorio = args[0]
                     if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
                         gestorFicheros.crearDirectorio(rutaDirectorio)
-                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
                         iniciarCalculadora(fichero)
                     }else{
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
                             val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
-                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
                             iniciarCalculadora(fichero)
                         }
                     }
@@ -125,7 +126,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
                     val rutaDirectorio = args[0]
                     if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
                         gestorFicheros.crearDirectorio(rutaDirectorio)
-                        val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                        val fichero = gestorFicheros.crearFichero(rutaDirectorio, Fecha.obtenerFechaActualFormateada())
                         val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                         consola.mostrarLista(lineasUltimoLog)
                         iniciarCalculadora(fichero,args[1],args[2].lowercase(),args[3])
@@ -133,7 +134,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
                             val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
-                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
+                            val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
                             iniciarCalculadora(fichero,args[1],args[2],args[3])
                         }
                     }
