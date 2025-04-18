@@ -15,9 +15,9 @@ import kotlin.math.cos
 fun main(args: Array<String>) {
    val consola = Consola()
    val fechaFormateada = Fecha.obtenerFechaActualFormateada()
-   val repoLog = RepoLog()
-   val gestorFicheros = GestorFicheros(repoLog)
-   val gestorMenu = GestorMenu(consola, Calculadora(), gestorFicheros)
+   val gestorFicheros = GestorFicheros()
+   val repoLog = RepoLog(gestorFicheros)
+   val gestorMenu = GestorMenu(consola, Calculadora(), repoLog, gestorFicheros)
    gestorMenu.iniciarPrograma(args, fechaFormateada)
    }
 

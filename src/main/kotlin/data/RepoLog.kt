@@ -6,13 +6,20 @@ import java.io.File
 
 class RepoLog(val gestorFicheros: IUtilFichero) : IRepoLog {
 
-    override fun escribirLog(rutaFichero: String, texto: Operacion) {
-        val fichero = gestorFicheros.comprobarFicheros(rutaFichero)
-
+    override fun escribirLog(rutaFichero: String, texto: String) {
+        val fichero = obtenerUltimoLog(rutaFichero)
+        if (fichero != null){
+            fichero.appendText(texto)
+        }
     }
 
-    override fun leerLog(fichero: File): List<String>{
-
+    override fun leerLog(rutaFichero: String): List<String>{
+       val fichero = obtenerUltimoLog(rutaFichero)
+        if (fichero != null){
+           return fichero.readLines()
+        }else{
+            return emptyList()
+        }
     }
 
     override fun obtenerUltimoLog(rutaArchivo: String): File?{

@@ -7,7 +7,7 @@ import prog2425.dam1.calculadora.model.Operacion
 import java.io.File
 
 
-class GestorFicheros(val repoLog: IRepoLog) : IUtilFichero {
+class GestorFicheros() : IUtilFichero {
     override fun buscarDirectorio(rutaDirectorio: String): Boolean {
         if (!File(rutaDirectorio).exists()) {
             return false

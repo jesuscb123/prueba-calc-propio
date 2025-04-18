@@ -2,13 +2,15 @@ package prog2425.dam1.calculadora.app
 
 import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
+import prog2425.dam1.calculadora.data.IRepoLog
 import prog2425.dam1.calculadora.model.Operacion
+import prog2425.dam1.calculadora.utils.GestorFicheros
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
 import kotlin.math.sign
 
 
-class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val gestorFicheros: IUtilFichero) {
+class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val repoLog: IRepoLog, val gestorFicheros: IUtilFichero) {
 
   fun iniciarCalculadora(rutaFichero: String){
         var terminar = false
@@ -69,7 +71,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
     }
     private fun guardarOperacion(rutaFichero: String, numero1: Double, signo: String, numero2: Double, resultado: Double){
         val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
-        gestorFicheros.escribirLog(rutaFichero, OperacionTexto)
+        repoLog.escribirLog(rutaFichero, OperacionTexto.toString())
     }
 
 
@@ -84,7 +86,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                         iniciarCalculadora(fichero)
                     }else{
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
                             val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
                             iniciarCalculadora(fichero)
@@ -105,7 +107,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                         iniciarCalculadora(fichero)
                     }else{
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
                             val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
                             iniciarCalculadora(fichero)
@@ -124,12 +126,12 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val ge
                     if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
                         gestorFicheros.crearDirectorio(rutaDirectorio)
                         val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
-                        val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                        val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                         consola.mostrarLista(lineasUltimoLog)
                         iniciarCalculadora(fichero,args[1],args[2].lowercase(),args[3])
                     }else{
                         if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                            val lineasUltimoLog = gestorFicheros.leerLog(gestorFicheros.obtenerUltimoLog(rutaDirectorio))
+                            val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
                             consola.mostrarLista(lineasUltimoLog)
                             val fichero = gestorFicheros.crearFichero(rutaDirectorio,fechaFormateada)
                             iniciarCalculadora(fichero,args[1],args[2],args[3])
