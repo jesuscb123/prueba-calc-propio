@@ -18,16 +18,6 @@ class GestorFicheros(val repoLog: IRepoLog) : IUtilFichero {
 
     override fun comprobarFicheros(rutaDirectorio: String): Boolean{
         return if ((File(rutaDirectorio).listFiles()?.size ?: 0) > 0) true else false
-
-    }
-
-    override fun obtenerUltimoLog(rutaArchivo: String): File{
-        return repoLog.obtenerUltimoLog(rutaArchivo)
-    }
-
-    override fun leerLog(fichero: File): List<String>{
-        val ultimoLog = repoLog.leerLog(fichero)
-        return ultimoLog
     }
 
     override fun crearDirectorio(ruta: String){
@@ -40,15 +30,15 @@ class GestorFicheros(val repoLog: IRepoLog) : IUtilFichero {
        val ficheroCreado = File(fichero).createNewFile()
         require(ficheroCreado) { "Fichero no creado correctamente." }
         return fichero
-
     }
 
-    override fun escribirLog(rutaFichero: String, texto: Operacion){
-       if(buscarDirectorio(rutaFichero)){
-           repoLog.escribirLog(rutaFichero, texto)
+   override fun obtenerFicheros(rutaFichero: String): List<File>{
+       if (comprobarFicheros(rutaFichero)){
+           return File(rutaFichero).listFiles()?.toList() ?: emptyList()
        }else{
-           throw IllegalArgumentException("Error al escribir en el fichero.")
+          return emptyList()
        }
+
     }
 
     }

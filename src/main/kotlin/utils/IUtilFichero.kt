@@ -10,18 +10,10 @@ interface IUtilFichero {
     fun comprobarFicheros(directorio: String): Boolean
 
 
-        fun obtenerUltimoLog(rutaArchivo: String): File
+    fun crearDirectorio(ruta: String)
 
 
-        fun leerLog(fichero: File): List<String>
+    fun crearFichero(rutaArchivo: String, nombreArchivo: String): String
 
-
-        fun crearDirectorio(ruta: String)
-
-
-        fun crearFichero(rutaArchivo: String, nombreArchivo: String): String
-
-
-        fun escribirLog(fichero: String, texto: Operacion)
-
+    fun obtenerFicheros(rutaFichero: String): List<File?>
     }

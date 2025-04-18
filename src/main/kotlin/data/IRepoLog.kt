@@ -11,7 +11,7 @@ interface IRepoLog {
    fun leerLog(fichero: File): List<String>
 
 
-    fun obtenerUltimoLog(rutaArchivo: String): File
+    fun obtenerUltimoLog(rutaArchivo: String): File?
 
 
 }
