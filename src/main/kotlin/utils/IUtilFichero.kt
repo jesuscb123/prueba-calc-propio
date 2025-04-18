@@ -16,4 +16,6 @@ interface IUtilFichero {
     fun crearFichero(rutaArchivo: String, nombreArchivo: String): String
 
     fun obtenerFicheros(rutaFichero: String): List<File?>
+
+    fun obtenerFichero(rutaArchivo: String): File?
     }

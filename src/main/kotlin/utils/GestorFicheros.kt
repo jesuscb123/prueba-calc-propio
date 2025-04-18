@@ -38,7 +38,14 @@ class GestorFicheros() : IUtilFichero {
        }else{
           return emptyList()
        }
+    }
 
+   override fun obtenerFichero(rutaFichero: String): File?{
+        if (File(rutaFichero).exists()){
+            return File(rutaFichero)
+        }else{
+            return null
+        }
     }
 
     }

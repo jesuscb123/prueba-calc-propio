@@ -7,7 +7,7 @@ import java.io.File
 class RepoLog(val gestorFicheros: IUtilFichero) : IRepoLog {
 
     override fun escribirLog(rutaFichero: String, texto: String) {
-        val fichero = obtenerUltimoLog(rutaFichero)
+        val fichero = gestorFicheros.obtenerFichero(rutaFichero)
         if (fichero != null){
             fichero.appendText(texto)
         }
