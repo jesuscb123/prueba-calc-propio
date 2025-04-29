@@ -16,6 +16,7 @@ import kotlin.math.cos
 fun main(args: Array<String>) {
    val consola = Consola()
    val gestorBD = GestorBD()
+   gestorBD.crearTabla()
    val repoLog = RepoLog(gestorBD)
    val gestorMenu = GestorMenu(consola, Calculadora(), repoLog, gestorBD)
    gestorMenu.iniciarPrograma(args)

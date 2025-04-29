@@ -12,7 +12,6 @@ import prog2425.dam1.calculadora.utils.IUtilGestorBD
 class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val repoLog: IRepoLog, val gestorBD: IUtilGestorBD) {
   fun iniciarCalculadora(){
         var terminar = false
-        gestorBD.crearTabla()
         do{
             try {
                 consola.mostrar("CALCULADORA")
