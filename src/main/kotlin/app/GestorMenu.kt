@@ -4,26 +4,25 @@ import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
 import prog2425.dam1.calculadora.data.IRepoLog
 import prog2425.dam1.calculadora.model.Operacion
-import prog2425.dam1.calculadora.utils.Fecha
-import prog2425.dam1.calculadora.utils.GestorFicheros
 
-import prog2425.dam1.calculadora.utils.IUtilFichero
-import kotlin.math.sign
+import prog2425.dam1.calculadora.utils.IUtilGestorBD
 
 
-class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val repoLog: IRepoLog) {
 
+class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val repoLog: IRepoLog, val gestorBD: IUtilGestorBD) {
   fun iniciarCalculadora(){
         var terminar = false
+        gestorBD.crearTabla()
         do{
             try {
                 consola.mostrar("CALCULADORA")
                 val a = pedirNumero("Introduce el primer número:")
                 val signo = pedirSigno("Introduce el operador:")
                 val b = pedirNumero("Introduce el segundo número:")
-                val resultado = obtenerResultado(a,signo, b)
+                val operacion = obtenerOperacion(a,signo, b)
+                val resultado = obtenerResultado(a, signo, b)
                 mostrarResultado(resultado)
-                guardarOperacion( a, signo, b, resultado)
+                guardarOperacion(operacion, resultado)
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
                 consola.mostrarError("$e")
@@ -56,8 +55,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
     private fun obtenerOperacion(a: Double, signo: String, b: Double): Operacion{
         return Operacion(a, signo, b)
     }
-    private fun guardarOperacion(numero1: Double, signo: String, numero2: Double, resultado: Double){
-        val operacion = obtenerOperacion(numero1, signo ,numero2)
+    private fun guardarOperacion(operacion: Operacion, resultado: Double){
         repoLog.guardarOperacion(operacion.toString(), resultado)
     }
 

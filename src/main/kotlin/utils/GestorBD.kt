@@ -18,7 +18,7 @@ class GestorBD : IUtilGestorBD {
    override fun crearTabla(){
         val sql = """
                 CREATE TABLE IF NOT EXISTS operaciones (
-                    id PRIMARY KEY,
+                    id IDENTITY PRIMARY KEY,
                     operacion VARCHAR(200),
                     resultado DOUBLE
                 )
@@ -28,7 +28,7 @@ class GestorBD : IUtilGestorBD {
     }
 
     override fun guardarOperacion(operacion: String, resultado: Double) {
-        val sql = "INSERT INTO operaciones (operacion, resultado) VALUES (?. ?)"
+        val sql = "INSERT INTO operaciones (operacion, resultado) VALUES (?, ?)"
 
         connect().use { conn -> conn.prepareStatement(sql).use { pstmt ->
             pstmt.setString(1, operacion)

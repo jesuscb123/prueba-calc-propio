@@ -5,6 +5,7 @@ import prog2425.dam1.calculadora.UI.Consola
 import prog2425.dam1.calculadora.app.GestorMenu
 import prog2425.dam1.calculadora.data.RepoLog
 import prog2425.dam1.calculadora.utils.Fecha
+import prog2425.dam1.calculadora.utils.GestorBD
 import prog2425.dam1.calculadora.utils.GestorFicheros
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -14,9 +15,9 @@ import kotlin.math.cos
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main(args: Array<String>) {
    val consola = Consola()
-   val gestorFicheros = GestorFicheros()
-   val repoLog = RepoLog(gestorFicheros)
-   val gestorMenu = GestorMenu(consola, Calculadora(), repoLog, gestorFicheros)
+   val gestorBD = GestorBD()
+   val repoLog = RepoLog(gestorBD)
+   val gestorMenu = GestorMenu(consola, Calculadora(), repoLog, gestorBD)
    gestorMenu.iniciarPrograma(args)
    }
 
