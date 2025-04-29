@@ -2,9 +2,10 @@ package prog2425.dam1.calculadora.data
 
 import prog2425.dam1.calculadora.model.Operacion
 import prog2425.dam1.calculadora.utils.IUtilFichero
+import prog2425.dam1.calculadora.utils.IUtilGestorBD
 import java.io.File
 
-class RepoLog(val gestorFicheros: IUtilFichero) : IRepoLog {
+class RepoLog(val gestorFicheros: IUtilGestorBD) : IRepoLog {
 
     override fun escribirLog(rutaFichero: String, texto: String) {
         val fichero = gestorFicheros.obtenerFichero(rutaFichero)
