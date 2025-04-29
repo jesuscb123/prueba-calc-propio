@@ -5,27 +5,8 @@ import prog2425.dam1.calculadora.utils.IUtilFichero
 import prog2425.dam1.calculadora.utils.IUtilGestorBD
 import java.io.File
 
-class RepoLog(val gestorFicheros: IUtilGestorBD) : IRepoLog {
-
-    override fun escribirLog(rutaFichero: String, texto: String) {
-        val fichero = gestorFicheros.obtenerFichero(rutaFichero)
-        if (fichero != null){
-            fichero.appendText(texto)
+class RepoLog(val gestorDB: IUtilGestorBD) : IRepoLog {
+    override fun guardarOperacion(operacion: String, resultado: Double) {
+        gestorDB.guardarOperacion(operacion, resultado)
         }
     }
-
-    override fun leerLog(rutaFichero: String): List<String>{
-       val fichero = obtenerUltimoLog(rutaFichero)
-        if (fichero != null){
-           return fichero.readLines()
-        }else{
-            return emptyList()
-        }
-    }
-
-    override fun obtenerUltimoLog(rutaArchivo: String): File?{
-        val listaFicheros = gestorFicheros.obtenerFicheros(rutaArchivo).filterNotNull()
-        return listaFicheros.maxByOrNull { it.lastModified() }
-}
-
-}

@@ -3,6 +3,7 @@ package prog2425.dam1.calculadora.utils
 import java.sql.Connection
 import java.sql.DriverManager
 
+
 class GestorBD : IUtilGestorBD {
 
     companion object{
@@ -13,7 +14,6 @@ class GestorBD : IUtilGestorBD {
             return DriverManager.getConnection(JDBC_URL, USUARIO, CONTRASENIA)
         }
     }
-
 
    override fun crearTabla(){
         val sql = """
@@ -28,7 +28,13 @@ class GestorBD : IUtilGestorBD {
     }
 
     override fun guardarOperacion(operacion: String, resultado: Double) {
+        val sql = "INSERT INTO operaciones (operacion, resultado) VALUES (?. ?)"
 
-
+        connect().use { conn -> conn.prepareStatement(sql).use { pstmt ->
+            pstmt.setString(1, operacion)
+            pstmt.setDouble(2, resultado)
+            pstmt.executeUpdate()
+        }
+        }
     }
 }

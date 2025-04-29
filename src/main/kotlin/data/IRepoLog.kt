@@ -5,13 +5,6 @@ import java.io.File
 
 interface IRepoLog {
 
-  fun escribirLog(fichero: String, texto: String)
-
-
-   fun leerLog(fichero: String): List<String>
-
-
-    fun obtenerUltimoLog(rutaArchivo: String): File?
-
+  fun guardarOperacion(operacion: String, resultado: Double)
 
 }
