@@ -1,0 +1,1 @@
+Primer número: 5.0, Operador: +, Segundo número: 10.0, Resultado: 15.0Primer número: 5.0, Operador: -, Segundo número: 10.0, Resultado: -5.0
