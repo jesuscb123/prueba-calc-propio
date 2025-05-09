@@ -1,15 +1,19 @@
 package prog2425.dam1.calculadora.app
 
+import prog2425.dam1.calculadora.Service.IOperacionService
 import prog2425.dam1.calculadora.Service.IServCalc
+import prog2425.dam1.calculadora.Service.OperacionService
 import prog2425.dam1.calculadora.UI.IEntradaSalida
 import prog2425.dam1.calculadora.model.Operacion
 import prog2425.dam1.calculadora.utils.Fecha
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
+import java.sql.SQLException
 import kotlin.math.sign
 
 
-class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val repoLog: IRepoLog, val gestorFicheros: IUtilFichero) {
+class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val operacionService: IOperacionService) {
+
 
   fun iniciarCalculadora(rutaFichero: String){
         var terminar = false
@@ -51,12 +55,18 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
         consola.mostrar(resultado)
     }
 
+    /*
     private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion{
         return Operacion(a, signo, b, resultado)
     }
-    private fun guardarOperacion(rutaFichero: String, numero1: Double, signo: String, numero2: Double, resultado: Double){
-        val OperacionTexto = obtenerOperacion(numero1, signo, numero2, resultado)
-        repoLog.escribirLog(rutaFichero, OperacionTexto.toString())
+
+     */
+    private fun guardarOperacion(numero1: Double, operador: String, numero2: Double, resultado: Double){
+        try {
+            operacionService.insertar(numero1,operador,numero2, resultado)
+        }catch(e: SQLException){}
+
+        }
     }
 
 
@@ -65,37 +75,30 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
             0 -> {
                iniciarSinArgumentos()
             }
+            /*
             1 ->{
                 iniciarConUnArgumento(args)
             }
             4 ->{
                 iniciarConCuatroArgumentos(args)
             }
+
+             */
             else -> consola.mostrarError("Debes introducir un argumento o cuatro o ninguno.")
         }
     }
 
     private fun iniciarSinArgumentos(){
         try {
-            val rutaDirectorio = "log"
-            if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
-                gestorFicheros.crearDirectorio(rutaDirectorio)
-                val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
-                iniciarCalculadora(fichero)
-            }else{
-                if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                    val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
-                    consola.mostrarLista(lineasUltimoLog)
-                    val fichero = gestorFicheros.crearFichero(rutaDirectorio, Fecha.obtenerFechaActualFormateada())
-                    iniciarCalculadora(fichero)
-                }
-            }
+
+
         }catch (e: IllegalArgumentException){
             consola.mostrarError("$e")
         }catch (e: Exception){
             consola.mostrarError("$e")
         }
     }
+    /*
     private fun iniciarConUnArgumento(args: Array<String>){
         try {
             val rutaDirectorio = args[0]
@@ -117,6 +120,10 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
             consola.mostrarError("$e")
         }
     }
+
+
+     */
+    /*
     private fun realizarCalculoArgumentos(numero1: Double, signo: String, numero2: Double): Double{
         val resultado =  calculadora.calculo(numero1, signo, numero2)
         return resultado
@@ -153,4 +160,6 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val re
             consola.mostrarError("$e")
         }
 }
+
+     */
 }
