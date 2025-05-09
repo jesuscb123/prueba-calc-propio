@@ -2,10 +2,8 @@ package prog2425.dam1.calculadora.app
 
 import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.UI.IEntradaSalida
-import prog2425.dam1.calculadora.data.IRepoLog
 import prog2425.dam1.calculadora.model.Operacion
 import prog2425.dam1.calculadora.utils.Fecha
-import prog2425.dam1.calculadora.utils.GestorFicheros
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
 import kotlin.math.sign
