@@ -5,7 +5,7 @@ import java.sql.DriverManager
 import java.sql.SQLException
 
 object Database {
-    private const val JDBC_URL = "jdvc:h2:./data/calculadora"
+    private const val JDBC_URL = "jdbc:h2:./data/calculadora"
     private const val USUARIO = "sa"
     private const val CONTRASENIA = ""
 

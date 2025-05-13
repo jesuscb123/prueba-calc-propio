@@ -15,7 +15,7 @@ import kotlin.math.sign
 class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val operacionService: IOperacionService) {
 
 
-  fun iniciarCalculadora(rutaFichero: String){
+  fun iniciarCalculadora(){
         var terminar = false
         do{
             try {
@@ -55,25 +55,20 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
         consola.mostrar(resultado)
     }
 
-    /*
-    private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion{
-        return Operacion(a, signo, b, resultado)
+
+    private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion? {
+        return operacionService.consultarOperacion()
     }
 
-     */
+
     private fun guardarOperacion(numero1: Double, operador: String, numero2: Double, resultado: Double){
-        try {
-            operacionService.insertar(numero1,operador,numero2, resultado)
-        }catch(e: SQLException){}
-
+        operacionService.insertar(numero1,operador,numero2, resultado)
         }
-    }
-
 
     fun iniciarPrograma(args: Array<String>){
         when (args.size){
             0 -> {
-               iniciarSinArgumentos()
+                iniciarCalculadora()
             }
             /*
             1 ->{
@@ -88,16 +83,13 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
         }
     }
 
-    private fun iniciarSinArgumentos(){
-        try {
+}
 
 
-        }catch (e: IllegalArgumentException){
-            consola.mostrarError("$e")
-        }catch (e: Exception){
-            consola.mostrarError("$e")
-        }
-    }
+
+
+
+
     /*
     private fun iniciarConUnArgumento(args: Array<String>){
         try {
@@ -162,4 +154,3 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
 }
 
      */
-}
