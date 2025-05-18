@@ -14,11 +14,9 @@ object Database {
         try {
             conn = DriverManager.getConnection(JDBC_URL, USUARIO, CONTRASENIA)
         }catch (e: SQLException) {
-            throw IllegalArgumentException("Error al realizar la conexión con la base de datos.")
+            throw IllegalArgumentException("Error al realizar la conexión con la base de datos. ${e.message}")
         }catch (e: Exception){
             throw Exception("Error inesperado: ${e.message}")
-        }finally {
-            cerrarConexion(conn)
         }
         return conn
     }

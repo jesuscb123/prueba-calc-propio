@@ -7,11 +7,7 @@ import java.util.Scanner
 class Consola() : IEntradaSalida {
     private val escaner = Scanner(System.`in`)
     override fun <T> mostrar(msj: T) {
-        if (msj is String) {
-            println(msj.trim())
-        }else if(msj is Double){
-            println(msj)
-        }
+        println(msj)
     }
 
     override fun mostrarError(msj: String) {
@@ -24,7 +20,7 @@ class Consola() : IEntradaSalida {
         return signo
     }
 
-    override fun pedirDouble(msj: String): Double {
+    override fun pedirDouble(msj: String): Double? {
         var numeroCorrecto = false
         var numero = 0.0
         do{
@@ -33,10 +29,10 @@ class Consola() : IEntradaSalida {
                 numero = escaner.nextDouble()
                 numeroCorrecto = true
             }catch (e: NumberFormatException){
-                mostrarError("Debes introducir un número flotante")
+                throw NumberFormatException("Introduce un número váido")
             }catch (e: InputMismatchException){
-                mostrarError("$e")
                 escaner.nextLine()
+                throw java.lang.IllegalArgumentException("Introduce un número válido")
             }
         }while (!numeroCorrecto)
         return numero

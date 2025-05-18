@@ -1,5 +1,6 @@
 package prog2425.dam1.calculadora.app
 
+import prog2425.dam1.calculadora.Service.IErrorService
 import prog2425.dam1.calculadora.Service.IOperacionService
 import prog2425.dam1.calculadora.Service.IServCalc
 import prog2425.dam1.calculadora.Service.OperacionService
@@ -8,11 +9,12 @@ import prog2425.dam1.calculadora.model.Operacion
 import prog2425.dam1.calculadora.utils.Fecha
 
 import prog2425.dam1.calculadora.utils.IUtilFichero
+import java.lang.Exception
 import java.sql.SQLException
 import kotlin.math.sign
 
 
-class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val operacionService: IOperacionService) {
+class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val operacionService: IOperacionService, val errorService: IErrorService) {
 
 
   fun iniciarCalculadora(){
@@ -20,15 +22,28 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
         do{
             try {
                 consola.mostrar("CALCULADORA")
+
                 val a = pedirNumero("Introduce el primer número:")
+                if (a == null) throw IllegalArgumentException("Introduce un número válido")
+
                 val signo = pedirSigno("Introduce el operador:")
+
                 val b = pedirNumero("Introduce el segundo número:")
+                if (b == null) throw IllegalArgumentException("Introduce un número válido")
+
                 val resultado = obtenerResultado(a,signo, b)
+
                 mostrarResultado(resultado)
-                guardarOperacion(rutaFichero, a, signo, b, resultado)
+
+                guardarOperacion(a, signo, b, resultado)
+
                 if (consola.preguntarTerminar()) terminar = false else terminar = true
             }catch(e: IllegalArgumentException){
-                consola.mostrarError("$e")
+                consola.mostrarError("${e.message}")
+                guardarError(e.message.toString())
+            }catch (e: Exception){
+                consola.mostrarError("${e.message}")
+                guardarError(e.message.toString())
             }
         }while (!terminar)
         consola.mostrar("Has finalizado la calculadora")
@@ -37,7 +52,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
 
 
 
-    private fun pedirNumero(msj: String): Double{
+    private fun pedirNumero(msj: String): Double?{
        return consola.pedirDouble(msj)
     }
 
@@ -56,7 +71,7 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
     }
 
 
-    private fun obtenerOperacion(a: Double, signo: String, b: Double, resultado: Double): Operacion? {
+    private fun consultarOperacion(): Operacion? {
         return operacionService.consultarOperacion()
     }
 
@@ -65,92 +80,48 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
         operacionService.insertar(numero1,operador,numero2, resultado)
         }
 
+    private fun guardarError(mensajeError: String){
+        errorService.insertarError(mensajeError)
+    }
+
     fun iniciarPrograma(args: Array<String>){
-        when (args.size){
-            0 -> {
-                iniciarCalculadora()
-            }
-            /*
-            1 ->{
-                iniciarConUnArgumento(args)
-            }
-            4 ->{
-                iniciarConCuatroArgumentos(args)
-            }
-
-             */
-            else -> consola.mostrarError("Debes introducir un argumento o cuatro o ninguno.")
-        }
-    }
-
-}
-
-
-
-
-
-
-    /*
-    private fun iniciarConUnArgumento(args: Array<String>){
-        try {
-            val rutaDirectorio = args[0]
-            if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
-                gestorFicheros.crearDirectorio(rutaDirectorio)
-                val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
-                iniciarCalculadora(fichero)
-            }else{
-                if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                    val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
-                    consola.mostrarLista(lineasUltimoLog)
-                    val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
-                    iniciarCalculadora(fichero)
+        try{
+            when (args.size){
+                0 -> {
+                    consola.mostrar(consultarOperacion())
+                    iniciarCalculadora()
                 }
+                3 -> {
+                    val resultado = iniciarConTresArgumentos(args)
+                    consola.mostrar(consultarOperacion())
+                    iniciarCalculadora()
+                }
+                else -> consola.mostrarError("Debes introducir un argumento o cuatro o ninguno.")
             }
-        }catch (e: IllegalArgumentException){
-            consola.mostrarError("$e")
+        }catch (e: SQLException){
+            consola.mostrar("Error, ${e.message}")
+            guardarError(e.message.toString())
         }catch (e: Exception){
-            consola.mostrarError("$e")
+            consola.mostrar("Error, ${e.message}")
+            guardarError(e.message.toString())
         }
+
     }
 
-
-     */
-    /*
     private fun realizarCalculoArgumentos(numero1: Double, signo: String, numero2: Double): Double{
-        val resultado =  calculadora.calculo(numero1, signo, numero2)
+        val resultado =  obtenerResultado(numero1, signo, numero2)
         return resultado
     }
-    private fun iniciarConCuatroArgumentos(args: Array<String>){
-        try {
-            val rutaDirectorio = args[0]
-            val numero1 = args[1].toDouble()
-            val signo = args[2].lowercase()
-            val numero2 = args[3].toDouble()
-            if (!gestorFicheros.buscarDirectorio(rutaDirectorio)){
-                gestorFicheros.crearDirectorio(rutaDirectorio)
-                gestorFicheros.crearFichero(rutaDirectorio, Fecha.obtenerFechaActualFormateada())
-                val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
-                consola.mostrarLista(lineasUltimoLog)
-                val resultado = realizarCalculoArgumentos(numero1, signo, numero2)
-                mostrarResultado(resultado)
-                guardarOperacion(rutaDirectorio, numero1, signo, numero2, resultado)
-                iniciarCalculadora(rutaDirectorio)
-            }else{
-                if (gestorFicheros.comprobarFicheros(rutaDirectorio)){
-                    val lineasUltimoLog = repoLog.leerLog(rutaDirectorio)
-                    consola.mostrarLista(lineasUltimoLog)
-                    val fichero = gestorFicheros.crearFichero(rutaDirectorio,Fecha.obtenerFechaActualFormateada())
-                    val resultado = realizarCalculoArgumentos(numero1, signo, numero2)
-                    mostrarResultado(resultado)
-                    guardarOperacion(fichero, numero1, signo, numero2, resultado)
-                    iniciarCalculadora(fichero)
-                }
-            }
-        }catch (e: IllegalArgumentException){
-            consola.mostrarError("$e")
-        }catch (e: Exception){
-            consola.mostrarError("$e")
+
+    private fun iniciarConTresArgumentos(args: Array<String>): Double{
+        val numero1 = args[0].toDouble()
+        val signo = args[1].lowercase()
+        val numero2 = args[2].toDouble()
+        val resultado = realizarCalculoArgumentos(numero1, signo, numero2)
+        guardarOperacion(numero1, signo, numero2, resultado)
+        return resultado
         }
 }
 
-     */
+
+
