@@ -21,20 +21,16 @@ class Consola() : IEntradaSalida {
     }
 
     override fun pedirDouble(msj: String): Double? {
-        var numeroCorrecto = false
-        var numero = 0.0
-        do{
+        var numero: Double? = null
             try{
                 mostrar(msj)
                 numero = escaner.nextDouble()
-                numeroCorrecto = true
             }catch (e: NumberFormatException){
                 throw NumberFormatException("Introduce un número váido")
             }catch (e: InputMismatchException){
                 escaner.nextLine()
                 throw java.lang.IllegalArgumentException("Introduce un número válido")
             }
-        }while (!numeroCorrecto)
         return numero
     }
 

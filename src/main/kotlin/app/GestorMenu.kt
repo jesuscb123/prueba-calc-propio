@@ -8,7 +8,6 @@ import prog2425.dam1.calculadora.UI.IEntradaSalida
 import prog2425.dam1.calculadora.model.Operacion
 import prog2425.dam1.calculadora.utils.Fecha
 
-import prog2425.dam1.calculadora.utils.IUtilFichero
 import java.lang.Exception
 import java.sql.SQLException
 import kotlin.math.sign
