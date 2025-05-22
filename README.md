@@ -26,7 +26,7 @@ https://github.com/jesuscb123/prueba-calc-propio/blob/7a108ab68a6fedc7b778567ecd
   - Llama al servicio de operación para realizar la consulta.
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/7a108ab68a6fedc7b778567ecd63588115a9314e/src/main/kotlin/app/GestorMenu.kt#L103-L109
-- Iniciar calculadora pide un número, un signo y otro número, si se lanza una excepción, se captura y sigue el bucle. Si todo está bien, muestra el resultado de la operación y la guarda en la base de datos.
+- Iniciar calculadora pide un número, un signo y otro número, si se lanza una excepción, se captura y sigue el bucle. Si todo está bien, muestra el resultado de la operación y la guarda en la base de datos, en caso de error lo muestra y guarda el error en la base de datos.
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/7a108ab68a6fedc7b778567ecd63588115a9314e/src/main/kotlin/app/GestorMenu.kt#L27-L62
 
@@ -38,7 +38,20 @@ https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L57-L71
 
-#### errorDao
+#### operacionDao
 - Inserta en una base de datos llamado al método *realizarConexion* de dataBase. 
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L13-L24
+
+- Consulta la última operación realizada. Se sabe cuál es la última debido a que el id es la fecha actual formateada, con horas y segundos.
+
+https://github.com/jesuscb123/prueba-calc-propio/blob/4527883f50009ceaa8d9197eac84e155a2c6ed87/src/main/kotlin/data/dao/OperacionDao.kt#L37-L57
+
+- Obtiene una operación o nulo en caso de no haber podido recuperar la operación.
+
+https://github.com/jesuscb123/prueba-calc-propio/blob/4527883f50009ceaa8d9197eac84e155a2c6ed87/src/main/kotlin/data/dao/OperacionDao.kt#L59-L77
+
+#### errorDao
+- Inserta los errores en la base de datos.
+
+  https://github.com/jesuscb123/prueba-calc-propio/blob/4527883f50009ceaa8d9197eac84e155a2c6ed87/src/main/kotlin/data/dao/ErrorDao.kt#L15-L29
