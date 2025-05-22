@@ -38,6 +38,10 @@ https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L57-L71
 
+- *OperacionService*
+  - Inseta la operación y hace que el id de la operación sea la fecha actual formateada.
+  
+    https://github.com/jesuscb123/prueba-calc-propio/blob/778e11f8dec3fa1ced17513c8f41e7f2c751349a/src/main/kotlin/Service/OperacionService.kt#L14-L25
 #### operacionDao
 - Inserta en una base de datos llamado al método *realizarConexion* de dataBase. 
 
