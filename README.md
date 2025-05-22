@@ -5,7 +5,7 @@ El proyecto consiste en crear una calculadora que permita almacenar las operacio
 
 Para ver el proyecto gestionando una base de datos h2 pulsa aquí: [CALCULADORA H2](https://github.com/jesuscb123/prueba-calc-propio/tree/calcBD)
 
-### ¿Cómo la calculadora gestiona los ficheros?
+### ¿Cómo gestiona la calculadora los ficheros?
 - Al ejecutar, instancia la consola para mostrar, el gestor de ficheros, el repositorio de logs y el gestor menú que inicia el programa.
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/73ae80efa283866b7003e278213c90bfec9d8dc6/src/main/kotlin/Main.kt#L13-L24
