@@ -3,13 +3,25 @@ package prog2425.dam1.calculadora.data.dao
 import prog2425.dam1.calculadora.data.db.Database
 import prog2425.dam1.calculadora.model.Operacion
 import java.sql.ResultSet
-
+/**
+ * Gestiona el acceso a datos para las operaciones.
+ * en la base de datos H2. Se encarga de insertar y consultar registros de operaciones.
+ */
 class OperacionDao() : IOperacionDAO {
-
 
     init{
       crearTablaOperacion()
     }
+
+    /**
+     * Inserta una nueva operación en la base de datos.
+     *
+     * @param id Identificador único de la operación.
+     * @param numero1 Primer número de la operación.
+     * @param operador Operador matemático (+, -, *, /, etc).
+     * @param numero2 Segundo número de la operación.
+     * @param resultado Resultado del cálculo.
+     */
     override fun insertar(id: String, numero1: Double, operador: String, numero2: Double, resultado: Double) {
         val consulta = "INSERT INTO Operacion (id, numero1, operador, numero2, resultado) VALUES (?,?,?,?,?)"
         Database.realizarConexion().use{conn ->
@@ -22,7 +34,11 @@ class OperacionDao() : IOperacionDAO {
             stmt?.executeUpdate()
         }
         }
-
+    /**
+     * Consulta la última operación registrada en la base de datos.
+     *
+     * @return La última operación registrada o `null` si no hay registros.
+     */
     override fun consultarOperacion(): Operacion?{
         var operacion: Operacion? = null
         val consulta = """
@@ -40,6 +56,12 @@ class OperacionDao() : IOperacionDAO {
         return operacion
     }
 
+    /**
+     * Convierte un [ResultSet] en una instancia de [Operacion].
+     *
+     * @param rs ResultSet obtenido de la consulta SQL.
+     * @return Objeto [Operacion] o `null` si no hay resultados.
+     */
     private fun obtenerOperacionH2(rs: ResultSet): Operacion?{
         var operacion: Operacion? = null
         while (rs.next()){
@@ -54,6 +76,10 @@ class OperacionDao() : IOperacionDAO {
         return operacion
     }
 
+    /**
+     * Crea la tabla `Operacion` en la base de datos si no existe.
+     * Usa `CREATE OR REPLACE TABLE IF NOT EXISTS` para asegurar su existencia sin perder datos.
+     */
     private fun crearTablaOperacion(){
         val consulta = """
                    CREATE OR REPLACE TABLE IF NOT EXISTS Operacion (

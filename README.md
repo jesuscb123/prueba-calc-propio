@@ -30,3 +30,15 @@ https://github.com/jesuscb123/prueba-calc-propio/blob/7a108ab68a6fedc7b778567ecd
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/7a108ab68a6fedc7b778567ecd63588115a9314e/src/main/kotlin/app/GestorMenu.kt#L27-L62
 
+*NOTA: Todas las consultas están controladas debido a que tengo un try-catch en iniciarPrograma e iniciarCalculadora, si se lanza una excepción, se captura en inciciarCalculadora si los métodos han sido llamados desde ahí o desde el otro método.
+
+- Para crear las tablas de error y de operación, cuándo se instancia cada Dao se crean las tablas si no existen.
+
+https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L7-L12
+
+https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L57-L71
+
+#### errorDao
+- Inserta en una base de datos llamado al método *realizarConexion* de dataBase. 
+
+https://github.com/jesuscb123/prueba-calc-propio/blob/5eb1a0dfa1e59d0be7453115fe489313ee0c15a3/src/main/kotlin/data/dao/OperacionDao.kt#L13-L24
