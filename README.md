@@ -44,3 +44,8 @@ https://github.com/jesuscb123/prueba-calc-propio/blob/73ae80efa283866b7003e27821
   - obtiene la operación y lo escribe en el fichero llamando al repoLog.
 
 https://github.com/jesuscb123/prueba-calc-propio/blob/73ae80efa283866b7003e278213c90bfec9d8dc6/src/main/kotlin/app/GestorMenu.kt#L105-L117
+
+- *escribirLog*
+  - Es un método de *repoLog* que obtiene un fichero y si el fichero no es nulo, añade una línea más al fichero con el texto que recibe por parámetro. De esta manera, consigue almacenar los cálculos si sigue realizando operaciones. Para obtener el fichero llama al gestor de base de datos que se encarga de buscar el fichero y devolverlo.
+
+    https://github.com/jesuscb123/prueba-calc-propio/blob/c594578ec58c879d05997dd016d78ef410196744/src/main/kotlin/data/RepoLog.kt#L14-L26
