@@ -2,13 +2,21 @@ package prog2425.dam1.calculadora.data.dao
 
 import prog2425.dam1.calculadora.data.db.Database
 
+/**
+ * Implementación de la interfaz [IErrorDao] encargada de gestionar los errores
+ * almacenados en la base de datos.
+ */
 class ErrorDao() : IErrorDao {
 
     init{
         crearTablaError()
     }
 
-
+    /**
+     * Inserta un mensaje de error en la tabla `Error` de la base de datos.
+     *
+     * @param mensajeError Mensaje descriptivo del error que se desea registrar.
+     */
     override fun insertarError(mensajeError: String) {
         val consulta = """
                     INSERT INTO Error (mensaje) VALUES (?)
@@ -20,6 +28,13 @@ class ErrorDao() : IErrorDao {
         }
     }
 
+    /**
+     * Crea la tabla `Error` en la base de datos si no existe.
+     *
+     * La tabla contiene:
+     * - `id`: clave primaria autoincremental.
+     * - `mensaje`: campo de texto para almacenar el mensaje del error.
+     */
     private fun crearTablaError(){
         val consulta = """
                    CREATE OR REPLACE TABLE IF NOT EXISTS Error (
