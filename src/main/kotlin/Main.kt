@@ -10,8 +10,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.cos
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/**
+ * Inicia el programa e instancia lo necesario. La consola para mostrar, el gestor de ficheros, el repositorio de log para poder recuperar o almacenar datos y el gestor menú para iniciar los programas.
+ *
+ * @param args argumentos que recibe por parámetros.
+ */
 fun main(args: Array<String>) {
    val consola = Consola()
    val gestorFicheros = GestorFicheros()
