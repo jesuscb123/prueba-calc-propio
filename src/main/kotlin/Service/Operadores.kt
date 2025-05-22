@@ -1,5 +1,6 @@
 package prog2425.dam1.calculadora.Service
 
+
 enum class Operadores(signo: String) {
         SUMAR("+"), RESTAR("-"), DIVIDIR("/"), MULTIPLICAR("*");
 

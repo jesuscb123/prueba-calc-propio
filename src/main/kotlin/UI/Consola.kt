@@ -80,34 +80,44 @@ class Consola() : IEntradaSalida {
      * @return true si el usuario quiere seguir, false si no.
      */
     override fun preguntarTerminar(): Boolean {
+        var respuesta: String = ""
         var opcionCorrecta = false
         val siONo = arrayOf("s","n", "si", "no")
         do {
             try {
                 val respuesta = pedirInfo("¿Desea hacer un nuevo cálculo? (s,si,n,no)").lowercase()
                 require(respuesta in siONo) {"Debes introducir sí o no."}
-                when (respuesta) {
-                    "si","s" -> {
-                        opcionCorrecta = true
-                        return true
-                    }
-                    else ->{
-                        opcionCorrecta = true
-                        return false
-                    }
-                }
+                opcionCorrecta = true
             }catch (e: IllegalArgumentException){
                 mostrarError("$e")
             }
         }while (!opcionCorrecta)
-        return false
+        when (respuesta) {
+            "si","s" -> {
+                return true
+            }
+            else -> {
+                return false
+            }
+        }
     }
 
+    /**
+     * Pide información en forma de texto.
+     *
+     * @param msj Mensaje para el usuario.
+     * @return Lo que haya escrito el usuario.
+     */
     override fun pedirInfo(msj: String): String {
         mostrar(msj)
         return escaner.next()
     }
 
+    /**
+     * Limpia la pantalla.
+     *
+     * @param numSaltos Número de saltos de línea que introduce si no puede limpiar de verdad.
+     */
     override fun limpiarPantalla(numSaltos:Int){
         if (System.console() != null) {
             mostrar("\u001b[H\u001b[2J")
@@ -118,12 +128,21 @@ class Consola() : IEntradaSalida {
             }
         }
     }
+
+    /**
+     * Muestra una lista de elementos.
+     *
+     * @param lista La lista que se quiere mostrar.
+     */
    override fun <T> mostrarLista(lista: List<T>){
         for (elemento in lista){
             mostrar(elemento)
         }
     }
 
+    /**
+     * Pausa el programa hasta que el usuario pulse enter.
+     */
     override fun pausar() {
         pedirInfo("Pulsa enter para continuar...")
     }
