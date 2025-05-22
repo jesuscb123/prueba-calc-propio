@@ -53,6 +53,9 @@ class GestorMenu(val consola: IEntradaSalida, val calculadora: IServCalc, val op
             }catch(e: IllegalArgumentException){
                 consola.mostrarError("${e.message}")
                 guardarError(e.message.toString())
+            }catch (e: SQLException){
+                consola.mostrar("${e.message}")
+                guardarError(e.message.toString())
             }catch (e: Exception){
                 consola.mostrarError("${e.message}")
                 guardarError(e.message.toString())
